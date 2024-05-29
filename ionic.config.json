@@ -1,0 +1,7 @@
+{
+  "name": "care-assistant",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
