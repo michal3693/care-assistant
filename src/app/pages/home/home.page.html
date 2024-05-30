@@ -1,0 +1,14 @@
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <div class="logo">
+      <img src="assets/logo.webp" alt="logo" />
+    </div>
+    <div @fadeInOut class="buttons">
+      <ion-button shape="round" expand="full">Zaloguj się</ion-button>
+      <a @fadeInOutDelayed class="buttons__register" routerLink="/register">
+        Załóż konto
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </a>
+    </div>
+  </div>
+</ion-content>
