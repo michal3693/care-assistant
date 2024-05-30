@@ -1,0 +1,37 @@
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <div class="top">
+      <div class="logo">
+        <img routerLink="/" src="assets/logo.webp" alt="logo" />
+      </div>
+    </div>
+    <div class="content">
+      <ion-input
+        label="E-mail"
+        label-placement="floating"
+        fill="outline"
+        placeholder="jan.kowalski@domena.pl"
+      ></ion-input>
+      <ion-input
+        type="password"
+        label="Hasło"
+        label-placement="floating"
+        fill="outline"
+        placeholder="********"
+      ></ion-input>
+      <ion-segment value="caregiver">
+        <ion-segment-button value="caregiver">
+          <ion-icon name="heart"></ion-icon>
+          <ion-label>Opiekun</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="patient">
+          <ion-icon name="accessibility"></ion-icon>
+          <ion-label>Pacjent</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+    <div class="buttons">
+      <ion-button expand="block" fill="solid">Załóż konto</ion-button>
+    </div>
+  </div>
+</ion-content>

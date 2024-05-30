@@ -6,4 +6,9 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/home/home.page').then((m) => m.HomePage),
   },
+  {
+    path: 'register',
+    loadChildren: () =>
+      import('./pages/register/register.routes').then((m) => m.registerRoutes),
+  },
 ];

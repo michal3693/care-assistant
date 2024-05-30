@@ -1,0 +1,19 @@
+.container {
+    height: 100%;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .top {
+        .logo {
+            width: 80px;
+        }
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+}
