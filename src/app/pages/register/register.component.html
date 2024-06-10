@@ -5,21 +5,23 @@
         <img routerLink="/" src="assets/logo.webp" alt="logo" />
       </div>
     </div>
-    <div class="content">
+    <div [formGroup]="newUser" class="content">
       <ion-input
+        formControlName="email"
         label="E-mail"
         label-placement="floating"
         fill="outline"
         placeholder="jan.kowalski@domena.pl"
       ></ion-input>
       <ion-input
+        formControlName="password"
         type="password"
         label="Hasło"
         label-placement="floating"
         fill="outline"
         placeholder="********"
       ></ion-input>
-      <ion-segment value="caregiver">
+      <ion-segment formControlName="role" value="caregiver">
         <ion-segment-button value="caregiver">
           <ion-icon name="heart"></ion-icon>
           <ion-label>Opiekun</ion-label>
@@ -31,7 +33,9 @@
       </ion-segment>
     </div>
     <div class="buttons">
-      <ion-button expand="block" fill="solid">Załóż konto</ion-button>
+      <ion-button expand="block" fill="solid" (click)="register()"
+        >Załóż konto</ion-button
+      >
     </div>
   </div>
 </ion-content>
