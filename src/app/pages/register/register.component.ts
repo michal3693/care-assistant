@@ -7,14 +7,16 @@ import {
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import {
-  IonIcon,
   IonButton,
   IonContent,
+  IonIcon,
   IonInput,
+  IonLabel,
   IonSegment,
   IonSegmentButton,
-  IonLabel,
 } from '@ionic/angular/standalone';
+import { RegisterService } from 'src/app/services/register.service';
+import { ToastsService } from 'src/app/services/toasts.service';
 
 @Component({
   selector: 'app-register',
@@ -36,7 +38,11 @@ import {
 export class RegisterComponent implements OnInit {
   newUser!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private toastsService: ToastsService,
+    private registerService: RegisterService
+  ) {}
 
   ngOnInit() {
     this.newUser = this.fb.group({
@@ -47,6 +53,20 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    console.log(this.newUser.value);
+    if (this.newUser.invalid) {
+      this.toastsService.showError('Formularz rejestracji jest niepoprawny');
+      return;
+    }
+
+    const { email, password, role } = this.newUser.value;
+    this.registerService.createAccount(email, password, role).subscribe({
+      next: () => {
+        this.toastsService.showSuccess('Rejestracja powiodła się');
+      },
+      error: (error) => {
+        console.error(error);
+        this.toastsService.showError('Rejestracja nie powiodła się');
+      },
+    });
   }
 }
