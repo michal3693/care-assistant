@@ -5,8 +5,8 @@
         <img routerLink="/" src="assets/logo.webp" alt="logo" />
       </div>
     </div>
-    <div [formGroup]="newUser" class="content">
-      <h2>Rejestracja</h2>
+    <div [formGroup]="credentials" class="content">
+      <h2>Logowanie</h2>
       <ion-input
         formControlName="email"
         label="E-mail"
@@ -22,21 +22,11 @@
         fill="outline"
         placeholder="********"
       ></ion-input>
-      <ion-segment formControlName="role" value="caregiver">
-        <ion-segment-button value="caregiver">
-          <ion-icon name="heart"></ion-icon>
-          <ion-label>Opiekun</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="patient">
-          <ion-icon name="accessibility"></ion-icon>
-          <ion-label>Pacjent</ion-label>
-        </ion-segment-button>
-      </ion-segment>
     </div>
     <div class="buttons">
-      <ion-button expand="block" fill="solid" (click)="register()">
-        Załóż konto
-      </ion-button>
+      <ion-button expand="block" fill="solid" (click)="login()"
+        >Zaloguj się</ion-button
+      >
     </div>
   </div>
 </ion-content>

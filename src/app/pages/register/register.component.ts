@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit {
 
   register() {
     if (this.newUser.invalid) {
-      this.toastsService.showError('Formularz rejestracji jest niepoprawny');
+      this.toastsService.showError('Wprowadzone dane są niepoprawne');
       return;
     }
 

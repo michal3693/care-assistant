@@ -10,8 +10,6 @@ export class RegisterService {
   auth: Auth = inject(Auth);
   firestore: Firestore = inject(Firestore);
 
-  constructor() {}
-
   createAccount(email: string, password: string, role: string) {
     return scheduled(
       createUserWithEmailAndPassword(this.auth, email, password),
