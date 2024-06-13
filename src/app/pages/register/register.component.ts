@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import {
   IonButton,
   IonContent,
@@ -39,6 +39,7 @@ export class RegisterComponent implements OnInit {
   newUser!: FormGroup;
 
   constructor(
+    private router: Router,
     private fb: FormBuilder,
     private toastsService: ToastsService,
     private registerService: RegisterService
@@ -62,6 +63,7 @@ export class RegisterComponent implements OnInit {
     this.registerService.createAccount(email, password, role).subscribe({
       next: () => {
         this.toastsService.showSuccess('Rejestracja powiodła się');
+        this.router.navigate(['']);
       },
       error: (error) => {
         console.error(error);

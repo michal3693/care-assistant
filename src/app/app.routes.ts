@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { isUserAuthGuard, isUserNotAuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -8,16 +9,19 @@ export const routes: Routes = [
   },
   {
     path: 'login',
+    canActivate: [isUserNotAuthGuard],
     loadChildren: () =>
       import('./pages/login/login.routes').then((m) => m.loginRoutes),
   },
   {
     path: 'register',
+    canActivate: [isUserNotAuthGuard],
     loadChildren: () =>
       import('./pages/register/register.routes').then((m) => m.registerRoutes),
   },
   {
     path: '',
+    canActivate: [isUserAuthGuard],
     loadComponent: () =>
       import('./layouts/app-layout/app-layout.component').then(
         (m) => m.AppLayoutComponent

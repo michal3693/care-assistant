@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
     const { email, password } = this.credentials.value;
     this.loginService
       .login(email, password)
-      .then(() => this.router.navigate(['/']))
+      .then(() => this.router.navigate(['']))
       .catch(() => this.toastsService.showError('Logowanie nie powiodło się'));
   }
 }
