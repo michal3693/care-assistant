@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   IonContent,
   IonRouterOutlet,
@@ -7,6 +7,7 @@ import {
   IonTabs,
   IonIcon,
 } from '@ionic/angular/standalone';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-app-layout',
@@ -23,7 +24,11 @@ import {
   ],
 })
 export class AppLayoutComponent implements OnInit {
-  constructor() {}
+  constructor(private loginService: LoginService) {}
 
   ngOnInit() {}
+
+  logout() {
+    this.loginService.logout();
+  }
 }
