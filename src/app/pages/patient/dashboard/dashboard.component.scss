@@ -1,0 +1,55 @@
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+
+    .button-group {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 250px));
+        justify-content: center;
+        grid-gap: 16px;
+        padding-bottom: 16px;
+    }
+
+    .button {
+        aspect-ratio: 1/1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid var(--ion-color-primary);
+        border-radius: 100%;
+        cursor: pointer;
+
+        &__icons-group {
+            display: flex;
+
+            .button__icon {
+                font-size: 55px;
+                margin-left: -10px;
+                margin-right: -10px;
+            }
+        }
+
+        &__icon {
+            font-size: 62px;
+            color: var(--ion-color-primary);
+        }
+
+        &--sos {
+            border-color: var(--ion-color-danger);
+
+            .button__icon {
+                color: var(--ion-color-danger);
+            }
+
+            .button__label {
+                color: var(--ion-color-danger);
+            }
+        }
+    }
+}

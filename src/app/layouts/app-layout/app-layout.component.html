@@ -2,18 +2,17 @@
   <ion-router-outlet></ion-router-outlet>
   <ion-tabs>
     <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="patient">
-        <ion-icon name="apps-outline"></ion-icon>
-        Panel
+      @for (item of menuItems; track $index) {
+      <ion-tab-button [tab]="item.route">
+        <ion-icon [name]="item.icon"></ion-icon>
+        {{ item.label }}
       </ion-tab-button>
-      <ion-tab-button tab="patient/settings">
-        <ion-icon name="person-add-outline"></ion-icon>
-        Prośby połączeń
-      </ion-tab-button>
+      }
+      <!--
       <ion-tab-button (click)="logout()">
         <ion-icon name="log-out-outline"></ion-icon>
         Wyloguj
-      </ion-tab-button>
+      </ion-tab-button> -->
     </ion-tab-bar>
   </ion-tabs>
 </ion-content>

@@ -1,1 +1,28 @@
-<p>PATIENT DASHBOARD</p>
+<div class="container">
+  <div class="button-group">
+    <div
+      class="button button--sos"
+      (click)="emitPatientEvent(PatientEventsEnum.SOS)"
+    >
+      <ion-icon name="help-buoy-outline" class="button__icon"></ion-icon>
+      <h3 class="button__label">SOS</h3>
+    </div>
+  </div>
+  <div class="button-group">
+    <div class="button" (click)="emitPatientEvent(PatientEventsEnum.Drink)">
+      <ion-icon name="water-outline" class="button__icon"></ion-icon>
+      <h3 class="button__label">Pić</h3>
+    </div>
+    <div class="button" (click)="emitPatientEvent(PatientEventsEnum.Eat)">
+      <ion-icon name="restaurant-outline" class="button__icon"></ion-icon>
+      <h3 class="button__label">Jeść</h3>
+    </div>
+    <div class="button" (click)="emitPatientEvent(PatientEventsEnum.Toilet)">
+      <div class="button__icons-group">
+        <ion-icon name="man-outline" class="button__icon"></ion-icon>
+        <ion-icon name="woman-outline" class="button__icon"></ion-icon>
+      </div>
+      <h3 class="button__label">Toaleta</h3>
+    </div>
+  </div>
+</div>
