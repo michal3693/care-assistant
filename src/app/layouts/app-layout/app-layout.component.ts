@@ -1,16 +1,16 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   OnInit,
-  inject,
 } from '@angular/core';
 import {
   IonContent,
+  IonIcon,
   IonRouterOutlet,
   IonTabBar,
   IonTabButton,
   IonTabs,
-  IonIcon,
 } from '@ionic/angular/standalone';
 import { MenuItem } from 'src/app/models/menu-item.model';
 import { LoginService } from 'src/app/services/login.service';
@@ -35,14 +35,16 @@ export class AppLayoutComponent implements OnInit {
   menuItems: MenuItem[] = [];
 
   constructor(
+    private cdRef: ChangeDetectorRef,
     private loginService: LoginService,
     private tabsMenuService: TabsMenuService
   ) {}
 
   ngOnInit() {
-    this.tabsMenuService
-      .getMenuItems()
-      .then((menuItems) => (this.menuItems = menuItems));
+    this.tabsMenuService.getMenuItems().then((menuItems) => {
+      this.menuItems = menuItems;
+      this.cdRef.markForCheck();
+    });
   }
 
   logout() {

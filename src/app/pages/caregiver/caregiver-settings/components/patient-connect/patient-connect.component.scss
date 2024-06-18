@@ -1,0 +1,30 @@
+.box {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    padding: 16px;
+    border: 1px solid var(--ion-color-primary);
+    border-radius: 8px;
+
+    &__label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        &__icon {
+            font-size: 28px;
+            color: var(--ion-color-primary);
+        }
+
+        h3 {
+            margin: 0;
+        }
+    }
+
+    &__content {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+}

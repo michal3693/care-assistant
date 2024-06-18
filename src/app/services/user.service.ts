@@ -13,18 +13,19 @@ export class UserService {
   private userProfile = new BehaviorSubject<User | null>(null);
 
   getUserProfile() {
-    if (this.userProfile.value)
-      return this.userProfile.asObservable().pipe(take(1));
+    if (this.userProfile.value) return this.userProfile.pipe(take(1));
 
     return new Observable<User | null>((observer) => {
       const unsubscribe = onAuthStateChanged(this.auth, (user) => {
         unsubscribe();
         if (user) {
           const userDoc = doc(this.firestore, `users/${user.uid}`);
-          docData(userDoc).subscribe((user) => {
-            this.userProfile.next(user as User);
-            observer.next(user as User);
-          });
+          docData(userDoc)
+            .pipe(take(1))
+            .subscribe((user) => {
+              this.userProfile.next(user as User);
+              observer.next(user as User);
+            });
         } else observer.next(null);
       });
     });
