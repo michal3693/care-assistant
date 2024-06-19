@@ -1,7 +1,15 @@
 import { Injectable, inject } from '@angular/core';
 import { Auth, onAuthStateChanged } from '@angular/fire/auth';
-import { Firestore, doc, docData } from '@angular/fire/firestore';
-import { BehaviorSubject, Observable, take } from 'rxjs';
+import {
+  Firestore,
+  collection,
+  collectionData,
+  doc,
+  docData,
+  query,
+  where,
+} from '@angular/fire/firestore';
+import { BehaviorSubject, Observable, map, take } from 'rxjs';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -29,6 +37,14 @@ export class UserService {
         } else observer.next(null);
       });
     });
+  }
+
+  getUserByEmail(email: string) {
+    const usersCollection = collection(this.firestore, 'users');
+    const q = query(usersCollection, where('email', '==', email));
+    return collectionData(q)
+      .pipe(take(1))
+      .pipe(map((users) => users[0] as User | undefined));
   }
 
   clearUserProfile() {
