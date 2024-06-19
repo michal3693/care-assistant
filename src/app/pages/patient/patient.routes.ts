@@ -8,4 +8,11 @@ export const patientRoutes: Routes = [
         (m) => m.DashboardComponent
       ),
   },
+  {
+    path: 'connect-requests',
+    loadComponent: () =>
+      import('./connect-requests/connect-requests.component').then(
+        (m) => m.ConnectRequestsComponent
+      ),
+  },
 ];

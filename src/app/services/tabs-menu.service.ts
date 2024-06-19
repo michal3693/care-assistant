@@ -16,7 +16,7 @@ export class TabsMenuService {
     },
     {
       label: 'Prośby połączeń',
-      route: 'patient/requests',
+      route: 'patient/connect-requests',
       icon: 'person-add-outline',
     },
     {
