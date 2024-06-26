@@ -13,8 +13,11 @@ import {
   IonTabs,
 } from '@ionic/angular/standalone';
 import { MenuItem } from 'src/app/models/menu-item.model';
+import { RoleEnum } from 'src/app/models/role.enum';
+import { ConnectRequestsService } from 'src/app/services/connect-requests.service';
 import { LoginService } from 'src/app/services/login.service';
 import { TabsMenuService } from 'src/app/services/tabs-menu.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-app-layout',
@@ -33,17 +36,26 @@ import { TabsMenuService } from 'src/app/services/tabs-menu.service';
 })
 export class AppLayoutComponent implements OnInit {
   menuItems: MenuItem[] = [];
+  role?: RoleEnum;
 
   constructor(
     private cdRef: ChangeDetectorRef,
     private loginService: LoginService,
-    private tabsMenuService: TabsMenuService
+    private tabsMenuService: TabsMenuService,
+    private userService: UserService,
+    private connectRequestsService: ConnectRequestsService
   ) {}
 
   ngOnInit() {
     this.tabsMenuService.getMenuItems().then((menuItems) => {
       this.menuItems = menuItems;
       this.cdRef.markForCheck();
+    });
+
+    this.userService.getUserProfile().subscribe((user) => {
+      this.role = user?.role;
+      if (this.role === RoleEnum.Patient)
+        this.connectRequestsService.loadConnectRequestsGlobally();
     });
   }
 

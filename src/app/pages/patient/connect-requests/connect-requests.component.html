@@ -1,13 +1,14 @@
 <div class="container">
   <h3>Prośby połączeń</h3>
   <div class="content">
+    @for(request of connectRequests(); track $index) {
     <div class="request">
       <div class="request-left">
         <h6>Od</h6>
-        <p>test.test.pl</p>
+        <p>{{ request.caregiverEmail }}</p>
       </div>
       <div class="request-right">
-        <ion-button>
+        <ion-button (click)="acceptRequest(request)">
           <ion-icon
             color="light"
             slot="icon-only"
@@ -16,5 +17,8 @@
         </ion-button>
       </div>
     </div>
+    } @empty {
+    <h6 class="content__empty">Brak próśb o połączenie</h6>
+    }
   </div>
 </div>
