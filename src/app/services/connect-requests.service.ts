@@ -47,7 +47,7 @@ export class ConnectRequestsService {
     this.connectRequestsSub = null;
   }
 
-  getConnectRequests() {
+  private getConnectRequests() {
     return this.userService.getUserProfile().pipe(
       switchMap((user) => {
         const connectRequestsCollection = collection(

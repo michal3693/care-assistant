@@ -15,6 +15,7 @@ import {
 import { MenuItem } from 'src/app/models/menu-item.model';
 import { RoleEnum } from 'src/app/models/role.enum';
 import { ConnectRequestsService } from 'src/app/services/connect-requests.service';
+import { ConnectionsService } from 'src/app/services/connections.service';
 import { LoginService } from 'src/app/services/login.service';
 import { TabsMenuService } from 'src/app/services/tabs-menu.service';
 import { UserService } from 'src/app/services/user.service';
@@ -43,7 +44,8 @@ export class AppLayoutComponent implements OnInit {
     private loginService: LoginService,
     private tabsMenuService: TabsMenuService,
     private userService: UserService,
-    private connectRequestsService: ConnectRequestsService
+    private connectRequestsService: ConnectRequestsService,
+    private connectionsService: ConnectionsService
   ) {}
 
   ngOnInit() {
@@ -57,6 +59,8 @@ export class AppLayoutComponent implements OnInit {
       if (this.role === RoleEnum.Patient)
         this.connectRequestsService.loadConnectRequestsGlobally();
     });
+
+    this.connectionsService.loadConnectionsGlobally();
   }
 
   logout() {
