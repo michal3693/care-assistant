@@ -24,10 +24,9 @@ export class ConnectionsService {
 
   loadConnectionsGlobally() {
     if (this.connectionsSub) return;
-    this.connectionsSub = this.getConnections().subscribe((connections) => {
-      console.log('Connections loaded globally', connections);
-      this.connections.set(connections);
-    });
+    this.connectionsSub = this.getConnections().subscribe((connections) =>
+      this.connections.set(connections)
+    );
   }
 
   destroyConnectionsSubscription() {
@@ -35,7 +34,7 @@ export class ConnectionsService {
     this.connectionsSub = null;
   }
 
-  private getConnections() {
+  getConnections() {
     return this.userService.getUserProfile().pipe(
       switchMap((user) => {
         const connectionsCollection = collection(this.firestore, 'connections');
