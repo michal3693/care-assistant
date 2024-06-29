@@ -11,16 +11,26 @@ export class CaregiverSocketsService {
     private connectionsService: ConnectionsService
   ) {}
 
-  private activeConnections: string[] = [];
-
   init() {
     this.connectionsService.getConnections().subscribe((connections) => {
-      connections
-        .filter((connection) => !this.activeConnections.includes(connection.id))
-        .forEach((connection) => {
-          this.socketService.joinToRoom(connection.id);
-          this.activeConnections.push(connection.id);
-        });
+      this.socketService.getUserRooms((rooms) => {
+        connections
+          .filter((connection) => !rooms.includes(connection.patientId))
+          .forEach((connection) => {
+            console.log('Joining to room', connection.patientId);
+            this.socketService.joinToRoom(connection.patientId);
+          });
+      });
     });
+
+    this.createListenerForPatientEvents();
+  }
+
+  private createListenerForPatientEvents() {
+    this.socketService
+      .getSocketInstance()
+      ?.on('patientEvent', (event: string, patientId: string) => {
+        console.log('Received patient event', event, 'from', patientId);
+      });
   }
 }

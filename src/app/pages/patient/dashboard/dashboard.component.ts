@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { IonIcon } from '@ionic/angular/standalone';
 import { PatientEventsEnum } from 'src/app/models/patient-events.enum';
+import { PatientSocketsService } from 'src/app/services/patient-sockets.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,14 +11,12 @@ import { PatientEventsEnum } from 'src/app/models/patient-events.enum';
   standalone: true,
   imports: [IonIcon],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
   PatientEventsEnum = PatientEventsEnum;
 
-  constructor() {}
-
-  ngOnInit() {}
+  constructor(private patientSocketsService: PatientSocketsService) {}
 
   emitPatientEvent(event: PatientEventsEnum) {
-    console.log('emitPatientEvent', event);
+    this.patientSocketsService.emitEvent(event);
   }
 }

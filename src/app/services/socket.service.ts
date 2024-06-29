@@ -36,4 +36,9 @@ export class SocketService {
   getSocketInstance() {
     return this.socket;
   }
+
+  getUserRooms(callback: (rooms: string[]) => void) {
+    if (!this.socket) return;
+    this.socket.emit('getUserRooms', callback);
+  }
 }
