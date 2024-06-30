@@ -8,6 +8,7 @@ import {
   throwError,
 } from 'rxjs';
 import { Socket, io } from 'socket.io-client';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,14 @@ import { Socket, io } from 'socket.io-client';
 export class SocketService {
   socket: Socket | null = null;
 
-  constructor() {}
+  constructor(private loginService: LoginService) {
+    this.loginService.getLogoutObservable().subscribe(() => {
+      if (this.socket) {
+        this.socket.disconnect();
+        this.socket = null;
+      }
+    });
+  }
 
   connectToSocketServer() {
     if (this.socket) return scheduled<void>(EMPTY, asapScheduler);

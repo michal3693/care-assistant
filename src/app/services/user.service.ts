@@ -11,6 +11,7 @@ import {
 } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable, map, take } from 'rxjs';
 import { User } from '../models/user.model';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,12 @@ export class UserService {
   private auth: Auth = inject(Auth);
   private firestore: Firestore = inject(Firestore);
   private userProfile = new BehaviorSubject<User | null>(null);
+
+  constructor(private loginService: LoginService) {
+    this.loginService
+      .getLogoutObservable()
+      .subscribe(() => this.userProfile.next(null));
+  }
 
   getUserProfile() {
     if (this.userProfile.value) return this.userProfile.pipe(take(1));
@@ -45,9 +52,5 @@ export class UserService {
     return collectionData(q)
       .pipe(take(1))
       .pipe(map((users) => users[0] as User | undefined));
-  }
-
-  clearUserProfile() {
-    this.userProfile.next(null);
   }
 }

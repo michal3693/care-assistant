@@ -21,6 +21,7 @@ import {
 } from 'rxjs';
 import { ConnectRequest } from '../models/connect-request.model';
 import { Connection } from '../models/connection.model';
+import { LoginService } from './login.service';
 import { UserService } from './user.service';
 
 @Injectable({
@@ -32,7 +33,16 @@ export class ConnectRequestsService {
   connectRequests = signal<ConnectRequest[]>([]);
   private connectRequestsSub: Subscription | null = null;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private loginService: LoginService,
+    private userService: UserService
+  ) {
+    this.loginService.getLogoutObservable().subscribe(() => {
+      this.connectRequests.set([]);
+      this.connectRequestsSub?.unsubscribe();
+      this.connectRequestsSub = null;
+    });
+  }
 
   loadConnectRequestsGlobally() {
     if (this.connectRequestsSub) return;
@@ -40,11 +50,6 @@ export class ConnectRequestsService {
     this.connectRequestsSub = this.getConnectRequests().subscribe(
       (connectRequests) => this.connectRequests.set(connectRequests)
     );
-  }
-
-  destroyConnectRequestsSubscription() {
-    this.connectRequestsSub?.unsubscribe();
-    this.connectRequestsSub = null;
   }
 
   private getConnectRequests() {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonIcon } from '@ionic/angular/standalone';
 import { PatientConnectComponent } from './components/patient-connect/patient-connect.component';
 
@@ -9,8 +9,4 @@ import { PatientConnectComponent } from './components/patient-connect/patient-co
   standalone: true,
   imports: [IonIcon, PatientConnectComponent],
 })
-export class CaregiverSettingsComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit() {}
-}
+export class CaregiverSettingsComponent {}

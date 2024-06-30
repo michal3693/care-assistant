@@ -6,10 +6,11 @@ import {
   query,
   where,
 } from '@angular/fire/firestore';
-import { Connection } from '../models/connection.model';
-import { UserService } from './user.service';
 import { Observable, Subscription, switchMap } from 'rxjs';
+import { Connection } from '../models/connection.model';
 import { RoleEnum } from '../models/role.enum';
+import { LoginService } from './login.service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,18 +21,22 @@ export class ConnectionsService {
   connections = signal<Connection[]>([]);
   private connectionsSub: Subscription | null = null;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private loginService: LoginService,
+    private userService: UserService
+  ) {
+    this.loginService.getLogoutObservable().subscribe(() => {
+      this.connections.set([]);
+      this.connectionsSub?.unsubscribe();
+      this.connectionsSub = null;
+    });
+  }
 
   loadConnectionsGlobally() {
     if (this.connectionsSub) return;
     this.connectionsSub = this.getConnections().subscribe((connections) =>
       this.connections.set(connections)
     );
-  }
-
-  destroyConnectionsSubscription() {
-    this.connectionsSub?.unsubscribe();
-    this.connectionsSub = null;
   }
 
   getConnections() {

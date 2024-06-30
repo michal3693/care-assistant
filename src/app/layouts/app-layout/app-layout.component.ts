@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  OnInit,
 } from '@angular/core';
 import {
   IonContent,
@@ -14,9 +13,9 @@ import {
 } from '@ionic/angular/standalone';
 import { MenuItem } from 'src/app/models/menu-item.model';
 import { RoleEnum } from 'src/app/models/role.enum';
+import { CaregiverNotificationsService } from 'src/app/services/caregiver-notifications.service';
 import { CaregiverSocketsService } from 'src/app/services/caregiver-sockets.service';
 import { ConnectRequestsService } from 'src/app/services/connect-requests.service';
-import { ConnectionsService } from 'src/app/services/connections.service';
 import { LoginService } from 'src/app/services/login.service';
 import { PatientSocketsService } from 'src/app/services/patient-sockets.service';
 import { SocketService } from 'src/app/services/socket.service';
@@ -38,7 +37,7 @@ import { UserService } from 'src/app/services/user.service';
     IonIcon,
   ],
 })
-export class AppLayoutComponent implements OnInit {
+export class AppLayoutComponent {
   menuItems: MenuItem[] = [];
   role?: RoleEnum;
   userId?: string;
@@ -46,16 +45,17 @@ export class AppLayoutComponent implements OnInit {
   constructor(
     private cdRef: ChangeDetectorRef,
     private socketService: SocketService,
-    private patientSocketsService: PatientSocketsService,
-    private caregiverSocketsService: CaregiverSocketsService,
     private loginService: LoginService,
     private tabsMenuService: TabsMenuService,
     private userService: UserService,
     private connectRequestsService: ConnectRequestsService,
-    private connectionsService: ConnectionsService
+    private patientSocketsService: PatientSocketsService,
+    private caregiverSocketsService: CaregiverSocketsService,
+    private caregiverNotificationsService: CaregiverNotificationsService
   ) {}
 
-  ngOnInit() {
+  ionViewWillEnter() {
+    console.log('App layout init');
     this.tabsMenuService.getMenuItems().then((menuItems) => {
       this.menuItems = menuItems;
       this.cdRef.markForCheck();
@@ -68,8 +68,6 @@ export class AppLayoutComponent implements OnInit {
       if (this.role === RoleEnum.Patient)
         this.connectRequestsService.loadConnectRequestsGlobally();
     });
-
-    // this.connectionsService.loadConnectionsGlobally();
   }
 
   private connectToSocketServer() {
