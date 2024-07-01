@@ -1,12 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { CaregiverSocketsService } from './caregiver-sockets.service';
 import { LoginService } from './login.service';
-import { takeUntil } from 'rxjs';
+import { takeUntil, tap } from 'rxjs';
+import { PatientEvent } from '../models/patient.event';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CaregiverNotificationsService {
+  notifications = signal<PatientEvent[]>([]);
+
   constructor(
     private loginService: LoginService,
     private caregiverSocketsService: CaregiverSocketsService
@@ -19,9 +22,16 @@ export class CaregiverNotificationsService {
   listenForPatientEvents() {
     this.caregiverSocketsService
       .getPatientEventObservable()
-      .pipe(takeUntil(this.loginService.getLogoutObservable()))
+      .pipe(
+        takeUntil(
+          this.loginService
+            .getLogoutObservable()
+            .pipe(tap(() => this.notifications.set([])))
+        )
+      )
       .subscribe((event) => {
-        console.log('Received event', event);
+        console.log('New patient event', event);
+        this.notifications.update((notifications) => [...notifications, event]);
       });
   }
 }

@@ -11,7 +11,7 @@ export const appLayoutRoutes: Routes = [
         path: 'patient',
         canActivate: [isPatientGuard],
         loadChildren: () =>
-          import('../../pages/patient/patient.routes').then(
+          import('../patient-layout/patient.routes').then(
             (m) => m.patientRoutes
           ),
       },
@@ -19,7 +19,7 @@ export const appLayoutRoutes: Routes = [
         path: 'caregiver',
         canActivate: [isCaregiverGuard],
         loadChildren: () =>
-          import('../../pages/caregiver/caregiver.routes').then(
+          import('../caregiver-layout/caregiver.routes').then(
             (m) => m.caregiverRoutes
           ),
       },
