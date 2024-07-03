@@ -49,6 +49,7 @@ export class RegisterComponent implements OnInit {
     this.newUser = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
+      name: ['', Validators.required],
       role: ['', Validators.required],
     });
   }
@@ -59,8 +60,8 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    const { email, password, role } = this.newUser.value;
-    this.registerService.createAccount(email, password, role).subscribe({
+    const { email, password, name, role } = this.newUser.value;
+    this.registerService.createAccount(email, password, name, role).subscribe({
       next: () => {
         this.toastsService.showSuccess('Rejestracja powiodła się');
         this.router.navigate(['']);

@@ -11,7 +11,7 @@ export class RegisterService {
   auth: Auth = inject(Auth);
   firestore: Firestore = inject(Firestore);
 
-  createAccount(email: string, password: string, role: string) {
+  createAccount(email: string, password: string, name: string, role: string) {
     return scheduled(
       createUserWithEmailAndPassword(this.auth, email, password),
       asapScheduler
@@ -20,6 +20,7 @@ export class RegisterService {
         setDoc(doc(this.firestore, 'users', userCredential.user.uid), {
           id: userCredential.user.uid,
           email,
+          name,
           role,
         } as User)
       )

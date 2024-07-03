@@ -90,6 +90,7 @@ export class ConnectRequestsService {
             caregiverId: request.caregiverId,
             patientId: request.patientId,
             patientEmail: user!.email,
+            patientName: user!.name,
             caregiverEmail: request.caregiverEmail,
             date: new Date().toISOString(),
           } as Connection);
@@ -127,6 +128,7 @@ export class ConnectRequestsService {
             caregiverId: currentUser!.id,
             patientId: foundUser.id,
             caregiverEmail: currentUser!.email,
+            caregiverName: currentUser!.name,
             date: new Date().toISOString(),
           } as ConnectRequest);
         })

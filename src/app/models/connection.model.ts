@@ -3,6 +3,7 @@ export interface Connection {
   caregiverId: string;
   patientId: string;
   patientEmail: string;
+  patientName: string;
   caregiverEmail: string;
   date: string;
 }

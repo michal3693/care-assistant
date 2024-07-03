@@ -3,5 +3,6 @@ export interface ConnectRequest {
   caregiverId: string;
   patientId: string;
   caregiverEmail: string;
+  caregiverName: string;
   date: string;
 }

@@ -77,6 +77,22 @@
                     }
                 }
             }
+
+            &--sos {
+                border: 3px solid var(--sos);
+
+                .notification__icon {
+                    .icon {
+                        color: var(--sos);
+                    }
+                }
+
+                .notification__info {
+                    .notification__title {
+                        color: var(--sos);
+                    }
+                }
+            }
         }
     }
 }

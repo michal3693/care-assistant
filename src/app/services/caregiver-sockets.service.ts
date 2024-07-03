@@ -49,8 +49,8 @@ export class CaregiverSocketsService {
   private createListenerForPatientEvents() {
     this.socketService
       .getSocketInstance()
-      ?.on('patientEvent', (event: PatientEventsEnum, patientId: string) =>
-        this.patientEvent$.next({ event, patientId })
+      ?.on('patientEvent', (event: PatientEvent) =>
+        this.patientEvent$.next(event)
       );
   }
 }
