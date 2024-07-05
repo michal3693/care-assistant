@@ -50,6 +50,9 @@ export class LiveViewComponent implements OnInit, OnDestroy {
         this.caregiverWebRtcService.closeConnectionOnPatient(patientId);
       }
     );
+
+    this.patientIdToPeerConnectionMap.clear();
+    this.connections = [];
   }
 
   private listenForSignals() {
