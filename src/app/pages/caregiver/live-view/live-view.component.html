@@ -1,3 +1,8 @@
-<p>
-  live-view works!
-</p>
+<div class="container">
+  @for(connection of connections; track $index) {
+  <div class="video-container">
+    <h3>Pacjent {{ connection.patientName }}</h3>
+    <video #patientVideo autoplay muted></video>
+  </div>
+  }
+</div>

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { IonRouterOutlet } from '@ionic/angular/standalone';
-import { CaregiverNotificationsService } from 'src/app/services/caregiver-notifications.service';
 import { ConnectRequestsService } from 'src/app/services/connect-requests.service';
 import { PatientSocketsService } from 'src/app/services/patient-sockets.service';
+import { PatientWebRTCService } from 'src/app/services/patient-web-rtc.service';
 import { SocketService } from 'src/app/services/socket.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -21,7 +21,8 @@ export class PatientLayoutComponent {
     private userService: UserService,
     private connectRequestsService: ConnectRequestsService,
     private socketService: SocketService,
-    private patientSocketsService: PatientSocketsService
+    private patientSocketsService: PatientSocketsService,
+    private webrtcServcice: PatientWebRTCService
   ) {}
 
   ionViewWillEnter() {
@@ -36,6 +37,7 @@ export class PatientLayoutComponent {
   private connectToSocketServer() {
     this.socketService.connectToSocketServer().subscribe(() => {
       this.patientSocketsService.init(this.userId!);
+      this.webrtcServcice.startLiveStream(this.userId!);
     });
   }
 }
